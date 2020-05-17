@@ -1,0 +1,44 @@
+# .github/workflows/merge-upstream.yml
+# merges the upstream repository's master branch into this one
+# Runs every Sunday at 2AM AEST, or on 'merge-upstream' / 'sync' repository dispatch events
+
+name: merge-upstream
+on:
+  schedule:
+    - cron: "0 16 * * 5" 
+  repository_dispatch:
+    types: [merge-upstream, sync]
+
+env:
+  UPSTREAM_REPO: "balenalabs/balena-dash"
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        fetch-depth: 0
+    - name: Merge upstream/master
+      run: |
+        echo "[merge-upstream] Running, configuring git"
+        git config --global user.name "${GITHUB_ACTOR}"
+        git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git remote add upstream "https://github.com/${UPSTREAM_REPO}.git"
+        echo "[merge-upstream] Configured remotes:"
+        git remote -v
+        echo "[merge-upstream] Fetching upstream"
+        git fetch upstream
+        echo "[merge-upstream] Checking out origin/master"
+        git checkout master
+        echo "[merge-upstream] Merging upstream/master into origin/master"
+        MERGE_RESULT=$(git merge --no-edit upstream/master)
+        echo $MERGE_RESULT
+        if [[ $MERGE_RESULT != *"Already up to date."* ]]; then
+          echo "[merge-upstream] Changes detected, pushing to origin"
+          git push origin master
+          echo "[merge-upstream] Push complete, done."
+        else 
+          echo "[merge-upstream] No changes to commit, done."
+        fi
+        
