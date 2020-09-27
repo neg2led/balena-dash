@@ -1,7 +1,20 @@
 applicationConfigVariables:
     - BALENA_HOST_CONFIG_gpu_mem: 128
+    - BALENA_HOST_CONFIG_disable_overscan: 1
+    - BALENA_HOST_CONFIG_dtparam: ["i2c_arm=off","spi=off","audio=off"]
+
+    # Settings for Hyperpixel4 Square on a Pi 3
+    - BALENA_HOST_CONFIG_dtoverlay: ["hyperpixel4-square-pi3"]
+    - BALENA_HOST_CONFIG_enable_dpi_lcd: 1
+    - BALENA_HOST_CONFIG_display_default_lcd: 1
+    - BALENA_HOST_CONFIG_dpi_group: 2
+    - BALENA_HOST_CONFIG_dpi_mode: 87
+    - BALENA_HOST_CONFIG_dpi_output_format: "0x7f226"
+    - BALENA_HOST_CONFIG_framebuffer_height: 720
+    - BALENA_HOST_CONFIG_framebuffer_width: 720
+    - BALENA_HOST_CONFIG_hdmi_timings: "720 0 15 15 15 720 0 10 10 10 0 0 0 60 0 35113500 6"
 applicationEnvironmentVariables:
     - CONFIG_MODE: 0
-    - LAUNCH_URL: https://www.yout-ube.com/watch?v=08lH_hxug28
+    - LAUNCH_URL: https://www.google.com
     - SHOW_CURSOR: 0
-    - CONTROL_TV: 0    
+    - CONTROL_TV: 0

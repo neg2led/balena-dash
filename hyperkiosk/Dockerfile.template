@@ -3,15 +3,15 @@ FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-python:3.8.5-buster
 RUN install_packages tzdata pigpio python3-pigpio
 
 ENV UDEV 1
-COPY dist/*.rules /etc/udev/rules.d/
+COPY dist/udev-rules/*.rules /etc/udev/rules.d/
 
-COPY dist/hyperpixel4-init /usr/bin/
+COPY dist/hyperpixel4-init /usr/bin/hyperpixel4-init
 RUN chmod +x /usr/bin/hyperpixel4-init
 
 ENV INITSYSTEM on
 COPY dist/hyperpixel4-init.service /etc/systemd/system/hyperpixel4-init.service
 
-COPY scripts/* /usr/src/
+COPY scripts /usr/src/hyperkiosk
 RUN chmod +x /usr/src/*.sh /usr/src/*.py
 
 CMD ["/usr/src/start.sh"]

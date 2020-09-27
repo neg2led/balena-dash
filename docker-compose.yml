@@ -16,9 +16,9 @@ services:
     labels:
       io.balena.features.dbus: '1'
       io.balena.features.firmware: '1'
-  hyperpixel:
-    restart: always
-    build: ./hyperpixel
-    privileged: true
+#  hyperpixel:
+#    restart: always
+#    build: ./hyperpixel
+#    privileged: true
 volumes:
   settings:
