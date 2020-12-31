@@ -10,10 +10,10 @@ services:
       - 8080:8080
     volumes:
       - 'settings:/data'
-  scheduler:
-    restart: always
-    build: ./scheduler
-    privileged: true
+#  scheduler:
+#    restart: always
+#    build: ./scheduler
+#    privileged: true
   wifi-connect:
     build: ./wifi-connect
     restart: always
@@ -22,6 +22,6 @@ services:
     labels:
       io.balena.features.dbus: '1'
       io.balena.features.firmware: '1'
-  fbcp:
-    image: balenablocks/fbcp
-    privileged: true
+#  fbcp:
+#    image: balenablocks/fbcp
+#    privileged: true
